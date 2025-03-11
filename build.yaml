@@ -1,31 +1,26 @@
-name: Build Firmware
+name: Build Sofle v2
 
 on: [push, pull_request]
 
 jobs:
   build:
-    name: Build
     runs-on: ubuntu-latest
     strategy:
       matrix:
         include:
+          - board: nice_nano_v2  # Ou nrfmicro_13, dependendo do seu MCU
+            shield: sofle_v2_left
           - board: nice_nano_v2
-            shield: corne_left
-            
-          - board: nice_nano_v2
-            shield: corne_right
-            
-          - board: nrfmicro_13
-            shield: sofle_left
-            
-          - board: nrfmicro_13
-            shield: sofle_right
+            shield: sofle_v2_right
 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
           submodules: recursive
-          
-      - name: Build
+
+      - name: Build Firmware
         uses: zmkfirmware/zmk/.github/actions/build-user-config@main
+        with:
+          board: ${{ matrix.board }}
+          shield: ${{ matrix.shield }}
