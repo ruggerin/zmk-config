@@ -2,10 +2,4 @@ on: [push, pull_request, workflow_dispatch]
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # Ou outro runner de sua preferência
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Build
-        run: |
-          # Adicione aqui os comandos para compilar seu firmware
+    uses: zmkfirmware/zmk/.github/workflows/build.yml@main  # Ajuste o caminho correto aqui
