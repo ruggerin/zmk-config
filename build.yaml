@@ -1,4 +1,5 @@
 name: Build Sofle v2
+name: Build Sofle v2
 
 on: [push, pull_request]
 
@@ -10,7 +11,10 @@ jobs:
         include:
           - board: nice_nano_v2  # Ou nrfmicro_13, dependendo do seu MCU
             shield: sofle_v2_left
+          - board: nice_nano_v2  # Ou nrfmicro_13, dependendo do seu MCU
+            shield: sofle_v2_left
           - board: nice_nano_v2
+            shield: sofle_v2_right
             shield: sofle_v2_right
 
     steps:
@@ -20,7 +24,13 @@ jobs:
           submodules: recursive
 
       - name: Build Firmware
+
+      - name: Build Firmware
         uses: zmkfirmware/zmk/.github/actions/build-user-config@main
+        with:
+          board: ${{ matrix.board }}
+          shield: ${{ matrix.shield }}
+
         with:
           board: ${{ matrix.board }}
           shield: ${{ matrix.shield }}
